@@ -1,0 +1,186 @@
+.collage-section {
+  background-color: #ffffff;
+}
+
+.collage-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 1rem;
+  height: 700px;
+}
+
+.collage-left {
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+}
+
+.collage-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.collage-left:hover img {
+  transform: scale(1.05);
+}
+
+.collage-right {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+  min-height: 0;
+  min-width: 0;
+}
+
+.collage-right-top,
+.collage-right-bottom {
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+}
+
+.collage-right-top img,
+.collage-right-bottom img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.collage-right-top:hover img,
+.collage-right-bottom:hover img {
+  transform: scale(1.05);
+}
+
+.shop-now-pill {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  z-index: 10;
+}
+
+.shop-now-pill:hover {
+  transform: translateY(-2px);
+  background-color: #f0f0f0;
+}
+
+/* 4 Overlapping Product Cards */
+.collage-overlay-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: -80px; /* Pull the cards up to overlap the collage */
+  position: relative;
+  z-index: 20;
+  padding: 0 4%; /* Reduced side padding to increase card width */
+}
+
+.overlay-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden; /* Allows edge-to-edge image */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  height: 340px; /* Reduced height to make cards smaller */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.overlay-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.overlay-card-img-wrapper {
+  background-color: #f3ece4; /* Soft beige background from screenshot */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65%; /* Increased image proportion */
+  width: 100%;
+}
+
+.overlay-card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay-card-info {
+  display: flex;
+  flex-direction: column;
+  height: 35%; /* Reduced text proportion */
+  justify-content: space-between;
+  padding: 1.2rem 1.2rem 1rem 1.2rem;
+}
+
+.overlay-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.overlay-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.overlay-card-subtitle {
+  font-size: 0.75rem;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.overlay-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.overlay-card-price {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+}
+
+.overlay-card-add-btn {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.overlay-card-add-btn:hover {
+  background-color: #333;
+  transform: scale(1.1);
+}
