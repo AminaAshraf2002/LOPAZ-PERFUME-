@@ -47,9 +47,8 @@ export default function MobileSplash() {
   return (
     <section ref={containerRef} className="mobile-splash-section relative w-full h-screen flex items-center justify-center overflow-hidden">
       <div ref={watermarkRef} className="absolute top-0 left-0 w-full flex items-start justify-center pointer-events-none" style={{ zIndex: 0, paddingTop: '8vh' }}>
-        <h1 className="serif flex m-0 p-0 watermark-gradient" style={{ fontSize: '25vw', lineHeight: 1 }}>
-          <span className="mobile-watermark-left">LO</span>
-          <span className="mobile-watermark-right">PAZ</span>
+        <h1 className="serif m-0 p-0 watermark-gradient text-center" style={{ fontSize: '25vw', lineHeight: 1 }}>
+          <span className="mobile-watermark-left">LO</span><span className="mobile-watermark-right">PAZ</span>
         </h1>
       </div>
 
