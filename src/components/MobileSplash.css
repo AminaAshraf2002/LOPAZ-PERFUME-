@@ -1,0 +1,23 @@
+.mobile-splash-section {
+  background-color: #FFFFFF;
+  display: none; /* Hidden by default */
+  margin-bottom: -120px;
+}
+
+@media (max-width: 768px) {
+  .mobile-splash-section {
+    display: flex; /* Visible only on mobile */
+  }
+}
+
+/* Watermark now renders as a bright white-to-warm-beige gradient
+   fill instead of a flat translucent color, so the giant brand
+   name reads as glossy/bright at the top, like the reference image. */
+.watermark-gradient {
+  background: linear-gradient(180deg, #ffffff 0%, #f2ede6 45%, #cfc6b8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  margin: 70px 0 10px 0;
+}

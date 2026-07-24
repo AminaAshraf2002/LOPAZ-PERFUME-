@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import MobileSplash from './components/MobileSplash';
 import PerfumeExperience from './components/PerfumeExperience';
 import BlackBanner from './components/BlackBanner';
 import ProductGrid from './components/ProductGrid';
@@ -61,6 +62,7 @@ function App() {
 
       {/* Main GSAP Experience */}
       <div id="home">
+        <MobileSplash />
         <PerfumeExperience />
       </div>
 
