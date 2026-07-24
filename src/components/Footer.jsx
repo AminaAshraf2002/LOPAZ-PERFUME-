@@ -28,7 +28,7 @@ export default function Footer() {
 
           {/* Links 1 */}
           <div className="footer-links">
-            <h4 className="footer-heading">Shop</h4>
+            <h4 className="footer-heading">Collections</h4>
             <ul>
               <li><a href="#all">All Fragrances</a></li>
               <li><a href="#bestsellers">Bestsellers</a></li>

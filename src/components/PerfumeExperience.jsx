@@ -19,7 +19,13 @@ export default function PerfumeExperience() {
   useEffect(() => {
     let mm = gsap.matchMedia();
 
-    mm.add("(min-width: 769px)", () => {
+    // Single breakpoint covers ALL screen sizes — mobile now gets the exact
+    mm.add({
+      isDesktop: "(min-width: 769px)",
+      isMobile: "(max-width: 768px)"
+    }, (context) => {
+      let { isMobile } = context.conditions;
+
       // Set initial states for content (hidden) so they don't flash before preloader
       gsap.set('.watermark-text', { opacity: 0 });
       gsap.set('.word', { y: 100 });
@@ -28,8 +34,14 @@ export default function PerfumeExperience() {
 
       // Create the content timeline (paused initially)
       const contentTl = gsap.timeline({ paused: true });
-      
-      contentTl.fromTo('.watermark-text',
+
+      // Move bottle to the right simultaneously as text fades in
+      contentTl.to('.bottle-scroll-container', {
+        x: isMobile ? '28vw' : '0vw', // 0vw on desktop, 28vw on mobile
+        duration: 2.0, // SLOWER MOVEMENT
+        ease: 'power2.inOut'
+      }, 0)
+      .fromTo('.watermark-text',
         { opacity: 0, scale: 1.1 },
         { opacity: 1, scale: 1, duration: 1.5, ease: 'power3.out' },
         0
@@ -44,15 +56,15 @@ export default function PerfumeExperience() {
         { x: '8vw', duration: 1.5, ease: 'power3.out' },
         0
       )
-      .fromTo('.word', 
+      .fromTo('.word',
         { y: 100 },
         { y: 0, duration: 1, stagger: 0.08, ease: 'power3.out' },
-        0.2 
+        0.2
       )
       .to('.flower-icon', { opacity: 1, duration: 0.5 }, '-=0.5')
-      .fromTo('.hero-bottom-element', 
-        { y: 100 }, 
-        { y: 0, duration: 1, stagger: 0.1, ease: 'power3.out' }, 
+      .fromTo('.hero-bottom-element',
+        { y: 100 },
+        { y: 0, duration: 1, stagger: 0.1, ease: 'power3.out' },
         '-=0.5'
       );
 
@@ -68,18 +80,22 @@ export default function PerfumeExperience() {
 
       preloaderTl
         .to(bottleRef.current, { opacity: 1, duration: 0.3 }) // Bottle appears small
-        .to(bottleRef.current, { 
-          scale: 1, 
-          duration: 1.5, // Smooth zooming in
-          ease: 'expo.inOut' 
-        }); // Start content immediately after zoom
+        .to(bottleRef.current, {
+          scale: 1,
+          duration: 2.5, // SLOWER ZOOM IN
+          ease: 'power2.inOut'
+        });
 
-      // 1. Pin the bottle container across both sections
+      // 1. Pin the bottle container
+      const isMobileDevice = window.innerWidth <= 768;
+      
       ScrollTrigger.create({
-        trigger: containerRef.current,
+        trigger: isMobileDevice ? '.hero-section' : containerRef.current,
         start: 'top top',
-        end: 'bottom bottom',
+        endTrigger: isMobileDevice ? '.left-panel' : null,
+        end: isMobileDevice ? 'bottom 45%' : 'bottom bottom', // Unpins right when the bottom of left panel reaches the center
         pin: bottleContainerRef.current,
+        pinSpacing: isMobileDevice ? false : true,
         scrub: 1,
       });
 
@@ -98,23 +114,21 @@ export default function PerfumeExperience() {
 
       // 3. Fade out hero text as we scroll down
       gsap.to(heroTextRef.current, {
-        y: -100,
-        opacity: 0,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
-          end: '30% top',
-          scrub: 1,
-        }
+          end: isMobileDevice ? 'top -30%' : 'bottom center', // Fades out very fast on mobile so it doesn't overlap the bottle
+          scrub: true,
+        },
+        y: isMobileDevice ? -200 : -100, // Moves up faster out of the way
+        opacity: 0,
       });
 
-      // 4. Split and Reveal Watermark is now handled purely on load.
-
-      // 5. Fade in detail panels when they come into view
+      // 4. Fade in detail panels when they come into view
       gsap.fromTo(detailLeftRef.current,
         { y: 100, opacity: 0 },
         {
-          y: 0, opacity: 1, 
+          y: 0, opacity: 1,
           scrollTrigger: {
             trigger: '.detail-section',
             start: 'top 70%',
@@ -127,7 +141,7 @@ export default function PerfumeExperience() {
       gsap.fromTo(detailRightRef.current,
         { y: 100, opacity: 0 },
         {
-          y: 0, opacity: 1, 
+          y: 0, opacity: 1,
           scrollTrigger: {
             trigger: '.detail-section',
             start: 'top 70%',
@@ -136,45 +150,36 @@ export default function PerfumeExperience() {
           }
         }
       );
-    });
 
-    mm.add("(max-width: 768px)", () => {
-      // Mobile - Simpler animation without pinning for better UX
-      gsap.set('.watermark-text', { opacity: 0 });
-      gsap.set('.word', { y: 20 });
-      gsap.set('.flower-icon', { opacity: 0 });
-      gsap.set('.hero-bottom-element', { y: 20, opacity: 0 });
-      gsap.set(bottleRef.current, { scale: 0.8, opacity: 0 });
-
-      const contentTl = gsap.timeline();
-      
-      contentTl.to('.watermark-text', { opacity: 0.3, duration: 1, ease: 'power3.out' })
-               .to(bottleRef.current, { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }, '-=0.5')
-               .to('.word', { y: 0, duration: 0.8, stagger: 0.05, ease: 'power3.out' }, '-=0.5')
-               .to('.flower-icon', { opacity: 1, duration: 0.5 }, '-=0.5')
-               .to('.hero-bottom-element', { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' }, '-=0.5');
-
-      gsap.fromTo(detailLeftRef.current,
-        { y: 30, opacity: 0 },
+      // 5. Glide bottle back to center when scrolling to detail section
+      gsap.fromTo('.bottle-scroll-container',
+        { x: window.innerWidth > 768 ? '0vw' : '28vw' },
         {
-          y: 0, opacity: 1, 
           scrollTrigger: {
-            trigger: detailLeftRef.current,
-            start: 'top 85%',
-          }
+            trigger: '.detail-section',
+            start: 'top bottom',
+            end: 'top 70%', // Finishes moving to center much earlier!
+            scrub: 1,
+          },
+          x: '0vw',
+          ease: 'power2.inOut',
+          immediateRender: false
         }
       );
 
-      gsap.fromTo(detailRightRef.current,
-        { y: 30, opacity: 0 },
-        {
-          y: 0, opacity: 1, 
+      // 6. Watermark parallax down into detail section on mobile
+      if (window.innerWidth <= 768) {
+        gsap.to('.watermark', {
           scrollTrigger: {
-            trigger: detailRightRef.current,
-            start: 'top 85%',
-          }
-        }
-      );
+            trigger: '.detail-section',
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: 1,
+          },
+          y: '110vh', // Moves it down into the second section
+          ease: 'none'
+        });
+      }
     });
 
     return () => mm.revert();
@@ -182,7 +187,7 @@ export default function PerfumeExperience() {
 
   return (
     <div ref={containerRef} className="experience-wrapper relative w-full" style={{ backgroundColor: '#ffffff' }}>
-      
+
       {/* SECTION 1: HERO */}
       <section className="hero-section relative w-full h-screen flex items-center overflow-hidden">
         {/* Watermark */}
@@ -210,17 +215,17 @@ export default function PerfumeExperience() {
               <div className="inline-block overflow-hidden"><div className="word inline-block">Literature</div></div>
             </span>
           </h1>
-          
+
           <div className="overflow-hidden mb-8">
             <p className="hero-desc text-secondary hero-bottom-element inline-block" style={{ color: '#6b6358' }}>
               Discover the beauty of fragrances with art and mind.<br/>
               Each scent is a quotation in the language of soul.
             </p>
           </div>
-          
+
           <div className="overflow-hidden">
             <div className="hero-bottom-element inline-block">
-              <a href="#shop" className="btn-primary shop-btn pointer-events-auto" style={{ backgroundColor: '#1a1a1a', borderRadius: '30px', padding: '0.8rem 2rem', color: '#fff' }}>Shop Now <span className="arrow-icon">→</span></a>
+              <a href="#shop" className="btn-primary shop-btn pointer-events-auto" style={{ backgroundColor: '#1a1a1a', borderRadius: '30px', padding: '0.8rem 2rem', color: '#fff' }}>Discover More <span className="arrow-icon">→</span></a>
             </div>
           </div>
         </div>
@@ -280,7 +285,7 @@ export default function PerfumeExperience() {
 
       {/* Pinned Bottle Container */}
       <div ref={bottleContainerRef} className="absolute top-0 left-0 w-full h-screen flex items-center justify-center pointer-events-none" style={{ zIndex: 20 }}>
-        {/* 4. Scrollable Container for the bottle */}
+        {/* Scrollable Container for the bottle */}
         <div className="bottle-scroll-container">
           <img ref={bottleRef} src={bottleImg} alt="Santal Trouble" className="bottle-img" />
         </div>

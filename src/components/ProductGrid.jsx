@@ -73,8 +73,8 @@ export default function ProductGrid() {
   return (
     <section ref={sectionRef} className="product-grid-section py-24 product-grid-bg">
       <div className="container">
-        <div className="section-header-centered">
-          <h2 className="product-grid-heading uppercase">SHOP BY COLLECTION</h2>
+        <div className="section-header-centered mb-16">
+          <h2 className="product-grid-heading uppercase">EXPLORE COLLECTIONS</h2>
           <div className="decorative-underline">
             <span className="flower-icon">✻</span>
           </div>
@@ -89,7 +89,7 @@ export default function ProductGrid() {
                 <div className="collection-card-overlay">
                   <span className="collection-card-subtitle">{product.subtitle}</span>
                   <h3 className="collection-card-title">{product.name}</h3>
-                  <span className="collection-shop-now">SHOP NOW</span>
+                  <span className="collection-shop-now">DISCOVER</span>
                 </div>
               </div>
             ))}
@@ -114,7 +114,7 @@ export default function ProductGrid() {
                 <div className="collection-card-overlay">
                   <span className="collection-card-subtitle">{product.subtitle}</span>
                   <h3 className="collection-card-title">{product.name}</h3>
-                  <span className="collection-shop-now">SHOP NOW</span>
+                  <span className="collection-shop-now">DISCOVER</span>
                 </div>
               </div>
             ))}

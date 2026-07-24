@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MobileSplash from './components/MobileSplash';
 import PerfumeExperience from './components/PerfumeExperience';
 import BlackBanner from './components/BlackBanner';
@@ -10,11 +10,29 @@ import './App.css';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const controlHeader = () => {
+      if (typeof window !== 'undefined') {
+        if (window.scrollY > lastScrollY && window.scrollY > 100) { 
+          setIsHeaderVisible(false);
+        } else { 
+          setIsHeaderVisible(true);
+        }
+        setLastScrollY(window.scrollY);
+      }
+    };
+
+    window.addEventListener('scroll', controlHeader);
+    return () => window.removeEventListener('scroll', controlHeader);
+  }, [lastScrollY]);
 
   return (
     <main>
       {/* Premium E-commerce Header */}
-      <header className="app-header">
+      <header className={`app-header ${isHeaderVisible ? '' : 'header-hidden'}`}>
         
         {/* Mobile Hamburger Button */}
         <button 
@@ -62,7 +80,7 @@ function App() {
 
       {/* Main GSAP Experience */}
       <div id="home">
-        <MobileSplash />
+        {/* <MobileSplash /> */}
         <PerfumeExperience />
       </div>
 

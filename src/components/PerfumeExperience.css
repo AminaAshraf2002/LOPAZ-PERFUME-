@@ -10,10 +10,9 @@
 
 .bottle-img {
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
-  /* NOTE: removed `transition: transform 0.3s ease-out;` here.
-     A CSS transition on the same property GSAP is tweening on scroll
-     fights the scrub timeline and can look like sideways drift/skew.
-     GSAP now owns 100% of this transform. */
+  /* NOTE: no CSS transition on transform here — GSAP owns 100% of this
+     property via scroll-scrub. A competing CSS transition would fight
+     the scrub timeline and look like sideways drift/skew. */
   max-height: 65vh;
   z-index: 2;
   position: relative;
@@ -33,7 +32,6 @@
 .watermark {
   user-select: none;
   margin-top: -220px;
-
 }
 
 .watermark-container {
@@ -47,7 +45,6 @@
   color: #b1875427;
   letter-spacing: 0.10em;
   font-weight: 100;
-
 }
 
 .experience-z-index {
@@ -59,7 +56,6 @@
   max-width: 450px;
   margin-left: 6%;
   margin-top: 220px;
-
 }
 
 .hero-headline {
@@ -85,7 +81,6 @@
   white-space: nowrap;
   /* Forces one row */
   font-family: 'Playfair Display', serif;
-
 }
 
 /* Use direct descendant to avoid hitting GSAP animation divs */
@@ -94,7 +89,6 @@
   font-weight: 400;
   display: inline-block;
   margin-top: 0.2rem;
-
 }
 
 .hero-desc {
@@ -142,8 +136,13 @@
 }
 
 @keyframes marquee-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .spacing-text {
@@ -154,7 +153,6 @@
   font-size: 2rem;
   font-family: 'Playfair Display', serif;
   font-weight: 500;
-
 }
 
 .detail-desc {
@@ -179,26 +177,73 @@
   pointer-events: auto;
 }
 
-/* Responsive GSAP Hero Section */
+/* Responsive layout scaling only — animation behavior is now identical
+   across all breakpoints (handled in JS via a single matchMedia block).
+   These rules just resize/reflow elements for smaller viewports. */
 @media (max-width: 1024px) {
-  .watermark-text { font-size: 16vw; }
-  .bottle-img { max-height: 50vh; }
-  .detail-panel { width: 40%; }
+  .watermark-text {
+    font-size: 16vw;
+  }
+
+  .bottle-img {
+    max-height: 50vh;
+  }
+
+  .detail-panel {
+    width: 40%;
+  }
 }
 
 @media (max-width: 768px) {
-  .watermark-text { font-size: 24vw; margin-top: -25vh; }
-  .bottle-img { max-height: 35vh; margin-top: 30vh; }
-  .bottle-scroll-container { margin-top: 25vh; }
-  .hero-text-container { 
-    margin-top: -15vh; 
-    margin-left: 0; 
-    padding: 0 1rem; 
-    text-align: center; 
+  .watermark-text {
+    font-size: 18vw; /* Reduced so it doesn't get cut off on narrow screens */
+    margin-top: -25vh;
   }
-  .hero-headline { font-size: 1.8rem; }
-  .hero-headline i { font-size: 1.8rem; }
-  
+
+  .bottle-scroll-container {
+    margin-top: 15vh;
+    /* transform handled by GSAP now */
+  }
+
+  .bottle-img {
+    max-height: 48vh; /* Decreased bottle size as requested */
+    max-width: none;
+    width: auto;
+    margin-top: -50px;
+    margin-left: 0;
+  }
+
+  .hero-text-container {
+    margin-top: 5vh;
+    margin-left: 5%;
+    padding: 0;
+    text-align: left;
+    max-width: 58%;
+    z-index: 10;
+  }
+
+  .hero-headline {
+    font-size: 1.4rem;
+  }
+
+  .hero-headline i {
+    font-size: 1.4rem;
+  }
+
+  .hero-headline > span {
+    font-size: 2rem;
+  }
+
+  .hero-desc {
+    font-size: 0.80rem;
+    margin-bottom: -1rem;
+  }
+
+  .shop-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.75rem;
+  }
+
   /* Override Tailwind classes for mobile */
   .detail-section-container {
     flex-direction: column !important;
@@ -207,12 +252,19 @@
     padding-bottom: 8rem;
     height: auto !important;
     min-height: 100vh;
+    margin-top: 20px;
   }
+
   .detail-panel {
     width: 90%;
     text-align: center;
     margin-bottom: 3rem;
   }
+  
+  .left-panel {
+    margin-bottom: 50vh; /* Perfectly matches the 48vh bottle height plus a tiny margin */
+  }
+
   .bottom-footer {
     bottom: 0;
     margin-top: -6rem;

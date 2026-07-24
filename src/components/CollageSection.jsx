@@ -29,7 +29,7 @@ export default function CollageSection() {
           <div className="collage-right">
             <div className="collage-right-top">
               <img src={imgTop} alt="Model smiling with perfume" />
-              <a href="#shop" className="shop-now-pill">Shop Now</a>
+              <a href="#shop" className="shop-now-pill">Discover More</a>
             </div>
             <div className="collage-right-bottom">
               <img src={imgBottom} alt="Perfume bottle close up" />
@@ -60,7 +60,7 @@ export default function CollageSection() {
                   <div className="overlay-card-bottom">
                     <span className="overlay-card-price">{product.price}</span>
                     <button className="overlay-card-add-btn">
-                      ADD TO CART
+                      LEARN MORE
                     </button>
                   </div>
                 </div>

@@ -1,5 +1,4 @@
 .mobile-splash-section {
-  background-color: #FFFFFF;
   display: none; /* Hidden by default */
   margin-bottom: -120px;
 }
@@ -10,14 +9,26 @@
   }
 }
 
-/* Watermark now renders as a bright white-to-warm-beige gradient
-   fill instead of a flat translucent color, so the giant brand
-   name reads as glossy/bright at the top, like the reference image. */
-.watermark-gradient {
-  background: linear-gradient(180deg, #ffffff 0%, #f2ede6 45%, #cfc6b8 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  margin: 70px 0 10px 0;
+.minimalist-luxury {
+  background-color: #f9f8f6;
+}
+
+.splash-logo-text-minimal {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: #1a1a1a;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.splash-logo-sub-minimal {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: #555555;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
 }
