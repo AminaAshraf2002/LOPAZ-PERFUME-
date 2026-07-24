@@ -152,8 +152,8 @@
 
 .detail-heading {
   font-size: 2rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
 
 }
 
@@ -187,13 +187,13 @@
 }
 
 @media (max-width: 768px) {
-  .watermark-text { font-size: 24vw; margin-top: -15vh; }
-  .bottle-img { max-height: 40vh; margin-top: 0; }
-  .bottle-scroll-container { margin-top: 30vh; }
+  .watermark-text { font-size: 24vw; margin-top: -25vh; }
+  .bottle-img { max-height: 35vh; margin-top: 30vh; }
+  .bottle-scroll-container { margin-top: 25vh; }
   .hero-text-container { 
     margin-top: -15vh; 
     margin-left: 0; 
-    padding: 0 2rem; 
+    padding: 0 1rem; 
     text-align: center; 
   }
   .hero-headline { font-size: 1.8rem; }
@@ -202,12 +202,20 @@
   /* Override Tailwind classes for mobile */
   .detail-section-container {
     flex-direction: column !important;
-    justify-content: space-evenly !important;
-    padding-top: 20vh;
+    justify-content: flex-start !important;
+    padding-top: -30px;
+    padding-bottom: 8rem;
+    height: auto !important;
+    min-height: 100vh;
   }
   .detail-panel {
     width: 90%;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+  }
+  .bottom-footer {
+    bottom: 0;
+    margin-top: -6rem;
+    position: relative !important;
   }
 }

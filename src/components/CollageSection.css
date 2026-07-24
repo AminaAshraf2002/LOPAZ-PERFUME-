@@ -232,7 +232,11 @@
 
 @media (max-width: 600px) {
   .collage-section {
-    padding: 2rem 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 0;
   }
   .collage-left {
     height: 250px;
@@ -241,13 +245,23 @@
     height: 250px;
   }
   .collage-overlay-cards {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     margin-top: 1rem;
-    padding: 0;
+    padding: 0 0 1rem 0;
     gap: 1rem;
+    -webkit-overflow-scrolling: touch;
   }
+  
+  .collage-overlay-cards::-webkit-scrollbar {
+    display: none;
+  }
+
   .overlay-card {
-    height: auto;
+    flex: 0 0 75%;
+    height: 350px;
+    scroll-snap-align: start;
   }
   .overlay-card-info {
     padding: 0.8rem;
@@ -257,5 +271,48 @@
   }
   .overlay-card-price {
     font-size: 0.8rem;
+  }
+  
+  .slider-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .slider-btn {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    pointer-events: auto;
+  }
+
+  .slider-btn:active {
+    transform: scale(0.95);
+    background-color: #333333;
+  }
+}
+
+.hide-on-desktop {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .hide-on-desktop {
+    display: flex;
   }
 }

@@ -40,7 +40,7 @@ export default function CollageSection() {
         {/* The 4 cards section */}
         <div className="collage-cards-section">
           <div className="section-header-centered">
-            <h2 className="product-grid-heading">SHOP BY COLLECTION</h2>
+            <h2 className="product-grid-heading">OUR BESTSELLERS</h2>
             <div className="decorative-underline">
               <span className="flower-icon">✻</span>
             </div>

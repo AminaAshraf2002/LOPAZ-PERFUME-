@@ -36,6 +36,9 @@ export default function ProductGrid() {
     }
   };
 
+  const sliderRef1 = useRef(null);
+  const sliderRef2 = useRef(null);
+
   useEffect(() => {
     let ctx = gsap.context(() => {
       gsap.from(cardsRef.current, {
@@ -50,9 +53,22 @@ export default function ProductGrid() {
         ease: 'power2.out'
       });
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
+
+  const handleScrollLeft1 = () => {
+    if (sliderRef1.current) sliderRef1.current.scrollBy({ left: -300, behavior: 'smooth' });
+  };
+  const handleScrollRight1 = () => {
+    if (sliderRef1.current) sliderRef1.current.scrollBy({ left: 300, behavior: 'smooth' });
+  };
+
+  const handleScrollLeft2 = () => {
+    if (sliderRef2.current) sliderRef2.current.scrollBy({ left: -300, behavior: 'smooth' });
+  };
+  const handleScrollRight2 = () => {
+    if (sliderRef2.current) sliderRef2.current.scrollBy({ left: 300, behavior: 'smooth' });
+  };
 
   return (
     <section ref={sectionRef} className="product-grid-section py-24 product-grid-bg">
@@ -64,17 +80,54 @@ export default function ProductGrid() {
           </div>
         </div>
 
-        <div className="collection-grid-layout">
-          {products.map((product) => (
-            <div key={product.id} ref={addToRefs} className="collection-card">
-              <img src={product.img} alt={product.name} className="collection-card-img" />
-              <div className="collection-card-overlay">
-                <span className="collection-card-subtitle">{product.subtitle}</span>
-                <h3 className="collection-card-title">{product.name}</h3>
-                <span className="collection-shop-now">SHOP NOW</span>
+        {/* Top Row Slider */}
+        <div style={{ position: 'relative', marginBottom: '2rem' }}>
+          <div ref={sliderRef1} className="collection-grid-layout">
+            {products.slice(0, 4).map((product) => (
+              <div key={product.id} ref={addToRefs} className="collection-card">
+                <img src={product.img} alt={product.name} className="collection-card-img" />
+                <div className="collection-card-overlay">
+                  <span className="collection-card-subtitle">{product.subtitle}</span>
+                  <h3 className="collection-card-title">{product.name}</h3>
+                  <span className="collection-shop-now">SHOP NOW</span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          
+          <div className="slider-controls hide-on-desktop">
+            <button className="slider-btn" onClick={handleScrollLeft1}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button className="slider-btn" onClick={handleScrollRight1}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom Row Slider */}
+        <div style={{ position: 'relative' }}>
+          <div ref={sliderRef2} className="collection-grid-layout">
+            {products.slice(4, 8).map((product) => (
+              <div key={product.id} ref={addToRefs} className="collection-card">
+                <img src={product.img} alt={product.name} className="collection-card-img" />
+                <div className="collection-card-overlay">
+                  <span className="collection-card-subtitle">{product.subtitle}</span>
+                  <h3 className="collection-card-title">{product.name}</h3>
+                  <span className="collection-shop-now">SHOP NOW</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="slider-controls hide-on-desktop">
+            <button className="slider-btn" onClick={handleScrollLeft2}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button className="slider-btn" onClick={handleScrollRight2}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
         </div>
       </div>
     </section>
