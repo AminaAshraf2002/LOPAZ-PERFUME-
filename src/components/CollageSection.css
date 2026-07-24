@@ -15,9 +15,12 @@
   position: relative;
   min-height: 0;
   min-width: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .collage-left img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -43,10 +46,13 @@
   position: relative;
   min-height: 0;
   min-width: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .collage-right-top img,
 .collage-right-bottom img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -243,14 +249,16 @@
   }
   .collage-grid {
     gap: 0.5rem;
+    grid-template-columns: 1fr;
+    height: auto;
   }
   .collage-left {
-    height: 250px;
+    height: 350px;
   }
   .collage-right {
-    height: 150px;
+    height: 200px;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: none;
+    grid-template-rows: 1fr;
     gap: 0.5rem;
   }
   .shop-now-pill {

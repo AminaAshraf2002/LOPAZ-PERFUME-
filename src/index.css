@@ -18,6 +18,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px; /* Offset for the fixed header */
+  overflow-x: hidden;
 }
 
 body {
@@ -25,7 +26,13 @@ body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   overflow-x: hidden;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
 }
 
 img {

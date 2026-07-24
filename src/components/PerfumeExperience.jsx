@@ -48,12 +48,12 @@ export default function PerfumeExperience() {
       )
       .fromTo('.watermark-left',
         { x: 0 },
-        { x: '-1vw', duration: 1.5, ease: 'power3.out' },
+        { x: isMobile ? '0vw' : '-1vw', duration: 1.5, ease: 'power3.out' },
         0
       )
       .fromTo('.watermark-right',
         { x: 0 },
-        { x: '8vw', duration: 1.5, ease: 'power3.out' },
+        { x: isMobile ? '1vw' : '8vw', duration: 1.5, ease: 'power3.out' },
         0
       )
       .fromTo('.word',
