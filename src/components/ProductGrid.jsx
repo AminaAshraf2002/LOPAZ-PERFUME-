@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import img1 from '../assets/9.png';
+import img1 from '../assets/1.png';
 import img2 from '../assets/2.png';
 import img3 from '../assets/3.png';
 import img4 from '../assets/4.png';
 import img5 from '../assets/5.png';
-import img6 from '../assets/1.png';
+import img6 from '../assets/6.png';
 import img7 from '../assets/7.png';
 import img8 from '../assets/8.png';
 
@@ -15,12 +15,14 @@ gsap.registerPlugin(ScrollTrigger);
 import './ProductGrid.css';
 
 const products = [
-  { id: 1, name: 'Velvet Blossom', subtitle: 'Women', badge: '-15%', reviews: 128, price: '$68.00', oldPrice: '$80.00', img: img1 },
-  { id: 2, name: 'Noir Intense', subtitle: 'Men', badge: '-10%', reviews: 96, price: '$72.00', oldPrice: '$80.00', img: img2 },
-  { id: 3, name: 'Azure Mist', subtitle: 'Unisex', badge: '-15%', reviews: 74, price: '$68.00', oldPrice: '$80.00', img: img3 },
-  { id: 4, name: 'Amber Oud', subtitle: 'Unisex', badge: '-10%', reviews: 88, price: '$90.00', oldPrice: '$100.00', img: img4 },
-  { id: 5, name: 'Oud Mystique', subtitle: 'Unisex', badge: null, reviews: 145, price: '$85.00', oldPrice: null, img: img5 },
-  { id: 6, name: 'Santal Whisper', subtitle: 'Women', badge: '-20%', reviews: 210, price: '$76.00', oldPrice: '$95.00', img: img6 },
+  { id: 1, name: 'Embrace Elegance', subtitle: 'WOMEN', img: img1 },
+  { id: 2, name: 'Unleash Confidence', subtitle: 'MEN', img: img2 },
+  { id: 3, name: 'For Every Mood', subtitle: 'UNISEX', img: img3 },
+  { id: 4, name: 'Customer Favorites', subtitle: 'BEST SELLERS', img: img4 },
+  { id: 5, name: 'Velvet Blossom', subtitle: 'NEW ARRIVALS', img: img5 },
+  { id: 6, name: 'Noir Intense', subtitle: 'LIMITED EDITION', img: img6 },
+  { id: 7, name: 'Azure Mist', subtitle: 'SUMMER VIBES', img: img7 },
+  { id: 8, name: 'Amber Oud', subtitle: 'SIGNATURE', img: img8 },
 ];
 
 export default function ProductGrid() {
@@ -56,34 +58,20 @@ export default function ProductGrid() {
     <section ref={sectionRef} className="product-grid-section py-24 product-grid-bg">
       <div className="container">
         <div className="section-header-centered">
-          <h2 className="product-grid-heading">BEST SELLING PRODUCTS</h2>
+          <h2 className="product-grid-heading uppercase">SHOP BY COLLECTION</h2>
           <div className="decorative-underline">
-            <span className="flower-icon">❁</span>
+            <span className="flower-icon">✻</span>
           </div>
         </div>
-        <div className="grid product-grid-layout">
-          {products.map((product, index) => (
-            <div 
-              key={product.id} 
-              className="product-card new-style-card"
-              ref={addToRefs}
-            >
-              <div className="product-card-img-wrapper">
-                {product.badge && <span className="discount-badge">{product.badge}</span>}
-                <img src={product.img} alt={product.name} />
-              </div>
-              <div className="product-card-info">
-                <h3 className="product-title">{product.name}</h3>
-                <p className="product-subtitle">{product.subtitle}</p>
-                <div className="product-rating">
-                  <span className="stars">★★★★★</span>
-                  <span className="reviews">({product.reviews})</span>
-                </div>
-                <div className="product-pricing">
-                  <span className="current-price">{product.price}</span>
-                  {product.oldPrice && <span className="old-price">{product.oldPrice}</span>}
-                </div>
-                <button className="add-to-cart-outline-btn">ADD TO CART</button>
+
+        <div className="collection-grid-layout">
+          {products.map((product) => (
+            <div key={product.id} ref={addToRefs} className="collection-card">
+              <img src={product.img} alt={product.name} className="collection-card-img" />
+              <div className="collection-card-overlay">
+                <span className="collection-card-subtitle">{product.subtitle}</span>
+                <h3 className="collection-card-title">{product.name}</h3>
+                <span className="collection-shop-now">SHOP NOW</span>
               </div>
             </div>
           ))}

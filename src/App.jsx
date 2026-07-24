@@ -1,22 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PerfumeExperience from './components/PerfumeExperience';
 import BlackBanner from './components/BlackBanner';
 import ProductGrid from './components/ProductGrid';
 import CollageSection from './components/CollageSection';
+import ParallaxCTA from './components/ParallaxCTA';
 import Footer from './components/Footer';
-import './App.css'; // Just keeping it empty or simple, or you can delete the import
+import './App.css'; 
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <main>
       {/* Premium E-commerce Header */}
       <header className="app-header">
+        
+        {/* Mobile Hamburger Button */}
+        <button 
+          className="mobile-menu-btn" 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            {isMobileMenuOpen ? (
+              <>
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </>
+            ) : (
+              <>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </>
+            )}
+          </svg>
+        </button>
+
         <div className="header-left">
-          <nav className="nav-links">
-            <a href="#home" className="header-link">Home</a>
-            <a href="#collection" className="header-link">Collection</a>
-            <a href="#products" className="header-link">Products</a>
-            <a href="#contact" className="header-link">Contact Us</a>
+          <nav className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+            <a href="#home" className="header-link" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
+            <a href="#collection" className="header-link" onClick={() => setIsMobileMenuOpen(false)}>Collection</a>
+            <a href="#products" className="header-link" onClick={() => setIsMobileMenuOpen(false)}>Products</a>
+            <a href="#contact" className="header-link" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</a>
           </nav>
         </div>
         
@@ -51,6 +76,9 @@ function App() {
       <div id="collection">
         <CollageSection />
       </div>
+
+      {/* Parallax Call to Action */}
+      <ParallaxCTA />
 
       {/* Site Footer */}
       <Footer />

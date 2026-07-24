@@ -14,7 +14,7 @@
 
 .product-grid-heading {
   font-family: 'Playfair Display', serif;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 500;
   letter-spacing: 0.05em;
   color: #1a1a1a;
@@ -37,146 +37,111 @@
 }
 
 .flower-icon {
-  color: #c9b191; /* Beige gold */
+  color: #c9b191;
   font-size: 1.2rem;
 }
 
-.product-grid-layout {
+.collection-grid-layout {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
-.new-style-card {
+.collection-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: transparent;
+  aspect-ratio: 8 / 9;
+  cursor: pointer;
 }
 
-.product-card-img-wrapper {
-  position: relative;
-  background-color: #f7f5f0; /* Beige background for images */
-  aspect-ratio: 1 / 1;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  overflow: hidden;
-}
-
-.product-card-img-wrapper img {
+.collection-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.6s ease;
 }
 
-.new-style-card:hover .product-card-img-wrapper img {
+.collection-card:hover .collection-card-img {
   transform: scale(1.05);
 }
 
-.discount-badge {
+.collection-card-overlay {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background-color: #1a1a1a;
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
-
-.product-card-info {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.85) 100%);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #fff;
+  transition: background 0.4s ease;
 }
 
-.product-title {
+.collection-card:hover .collection-card-overlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.95) 100%);
+}
+
+.collection-card-subtitle {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 0.65rem;
   font-weight: 600;
-  color: #1a1a1a;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #e5e5e5;
   margin-bottom: 0.3rem;
 }
 
-.product-subtitle {
-  font-size: 0.8rem;
-  color: #8c8c8c;
-  margin-bottom: 0.8rem;
+.collection-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 1.2rem;
 }
 
-.product-rating {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.8rem;
-}
-
-.stars {
-  color: #c9b191; /* Gold */
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-}
-
-.reviews {
-  font-size: 0.75rem;
-  color: #8c8c8c;
-}
-
-.product-pricing {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.current-price {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #1a1a1a;
-}
-
-.old-price {
-  font-size: 0.9rem;
-  color: #b3b3b3;
-  text-decoration: line-through;
-}
-
-.add-to-cart-outline-btn {
-  width: 100%;
-  background: transparent;
-  border: 1px solid #e5e5e5;
-  color: #1a1a1a;
-  padding: 0.8rem 0;
-  font-size: 0.8rem;
+.collection-shop-now {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
-.add-to-cart-outline-btn:hover {
-  background: #1a1a1a;
-  color: #ffffff;
-  border-color: #1a1a1a;
+.collection-card:hover .collection-shop-now {
+  opacity: 1;
 }
 
-@media (max-width: 1200px) {
-  .product-grid-layout {
+/* Responsive Styles */
+@media (max-width: 1440px) {
+  .collection-grid-layout {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .collection-grid-layout {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 }
 
 @media (max-width: 600px) {
-  .product-grid-layout {
+  .collection-grid-layout {
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .product-grid-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }

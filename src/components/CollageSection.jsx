@@ -37,26 +37,36 @@ export default function CollageSection() {
           </div>
         </div>
 
-        <div className="collage-overlay-cards">
-          {overlayProducts.map((product) => (
-            <div key={product.id} className="overlay-card">
-              <div className="overlay-card-img-wrapper">
-                <img src={product.img} alt={product.name} />
-              </div>
-              <div className="overlay-card-info">
-                <div className="overlay-card-text">
-                  <h3 className="overlay-card-title">{product.name}</h3>
-                  <p className="overlay-card-subtitle">{product.subtitle}</p>
-                </div>
-                <div className="overlay-card-bottom">
-                  <span className="overlay-card-price">{product.price}</span>
-                  <button className="overlay-card-add-btn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                  </button>
-                </div>
-              </div>
+        {/* The 4 cards section */}
+        <div className="collage-cards-section">
+          <div className="section-header-centered">
+            <h2 className="product-grid-heading">SHOP BY COLLECTION</h2>
+            <div className="decorative-underline">
+              <span className="flower-icon">✻</span>
             </div>
-          ))}
+          </div>
+
+          <div className="collage-overlay-cards">
+            {overlayProducts.map((product) => (
+              <div key={product.id} className="overlay-card">
+                <div className="overlay-card-img-wrapper">
+                  <img src={product.img} alt={product.name} />
+                </div>
+                <div className="overlay-card-info">
+                  <div className="overlay-card-text">
+                    <h3 className="overlay-card-title">{product.name}</h3>
+                    <p className="overlay-card-subtitle">{product.subtitle}</p>
+                  </div>
+                  <div className="overlay-card-bottom">
+                    <span className="overlay-card-price">{product.price}</span>
+                    <button className="overlay-card-add-btn">
+                      ADD TO CART
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

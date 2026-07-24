@@ -178,3 +178,36 @@
 .detail-panel[style*="opacity: 1"] {
   pointer-events: auto;
 }
+
+/* Responsive GSAP Hero Section */
+@media (max-width: 1024px) {
+  .watermark-text { font-size: 16vw; }
+  .bottle-img { max-height: 50vh; }
+  .detail-panel { width: 40%; }
+}
+
+@media (max-width: 768px) {
+  .watermark-text { font-size: 24vw; margin-top: -15vh; }
+  .bottle-img { max-height: 40vh; margin-top: 0; }
+  .bottle-scroll-container { margin-top: 30vh; }
+  .hero-text-container { 
+    margin-top: -15vh; 
+    margin-left: 0; 
+    padding: 0 2rem; 
+    text-align: center; 
+  }
+  .hero-headline { font-size: 1.8rem; }
+  .hero-headline i { font-size: 1.8rem; }
+  
+  /* Override Tailwind classes for mobile */
+  .detail-section-container {
+    flex-direction: column !important;
+    justify-content: space-evenly !important;
+    padding-top: 20vh;
+  }
+  .detail-panel {
+    width: 90%;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}

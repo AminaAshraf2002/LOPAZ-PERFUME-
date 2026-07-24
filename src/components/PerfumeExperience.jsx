@@ -17,7 +17,9 @@ export default function PerfumeExperience() {
   const detailRightRef = useRef(null);
 
   useEffect(() => {
-    let ctx = gsap.context(() => {
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 769px)", () => {
       // Set initial states for content (hidden) so they don't flash before preloader
       gsap.set('.watermark-text', { opacity: 0 });
       gsap.set('.word', { y: 100 });
@@ -30,6 +32,16 @@ export default function PerfumeExperience() {
       contentTl.fromTo('.watermark-text',
         { opacity: 0, scale: 1.1 },
         { opacity: 1, scale: 1, duration: 1.5, ease: 'power3.out' },
+        0
+      )
+      .fromTo('.watermark-left',
+        { x: 0 },
+        { x: '-1vw', duration: 1.5, ease: 'power3.out' },
+        0
+      )
+      .fromTo('.watermark-right',
+        { x: 0 },
+        { x: '8vw', duration: 1.5, ease: 'power3.out' },
         0
       )
       .fromTo('.word', 
@@ -96,16 +108,7 @@ export default function PerfumeExperience() {
         }
       });
 
-      // 4. Fade out watermark
-      gsap.to(watermarkRef.current, {
-        opacity: 0,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: '30% top',
-          scrub: 1,
-        }
-      });
+      // 4. Split and Reveal Watermark is now handled purely on load.
 
       // 5. Fade in detail panels when they come into view
       gsap.fromTo(detailLeftRef.current,
@@ -133,10 +136,48 @@ export default function PerfumeExperience() {
           }
         }
       );
+    });
 
-    }, containerRef);
+    mm.add("(max-width: 768px)", () => {
+      // Mobile - Simpler animation without pinning for better UX
+      gsap.set('.watermark-text', { opacity: 0 });
+      gsap.set('.word', { y: 20 });
+      gsap.set('.flower-icon', { opacity: 0 });
+      gsap.set('.hero-bottom-element', { y: 20, opacity: 0 });
+      gsap.set(bottleRef.current, { scale: 0.8, opacity: 0 });
 
-    return () => ctx.revert();
+      const contentTl = gsap.timeline();
+      
+      contentTl.to('.watermark-text', { opacity: 0.3, duration: 1, ease: 'power3.out' })
+               .to(bottleRef.current, { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }, '-=0.5')
+               .to('.word', { y: 0, duration: 0.8, stagger: 0.05, ease: 'power3.out' }, '-=0.5')
+               .to('.flower-icon', { opacity: 1, duration: 0.5 }, '-=0.5')
+               .to('.hero-bottom-element', { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' }, '-=0.5');
+
+      gsap.fromTo(detailLeftRef.current,
+        { y: 30, opacity: 0 },
+        {
+          y: 0, opacity: 1, 
+          scrollTrigger: {
+            trigger: detailLeftRef.current,
+            start: 'top 85%',
+          }
+        }
+      );
+
+      gsap.fromTo(detailRightRef.current,
+        { y: 30, opacity: 0 },
+        {
+          y: 0, opacity: 1, 
+          scrollTrigger: {
+            trigger: detailRightRef.current,
+            start: 'top 85%',
+          }
+        }
+      );
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -146,7 +187,10 @@ export default function PerfumeExperience() {
       <section className="hero-section relative w-full h-screen flex items-center overflow-hidden">
         {/* Watermark */}
         <div ref={watermarkRef} className="watermark absolute w-full h-full flex items-center justify-center pointer-events-none" style={{ zIndex: 0 }}>
-          <h1 className="serif watermark-text">LOPAZ</h1>
+          <h1 className="serif watermark-text flex">
+            <span className="watermark-left">LO</span>
+            <span className="watermark-right">PAZ</span>
+          </h1>
         </div>
 
         {/* Hero Left Text */}
